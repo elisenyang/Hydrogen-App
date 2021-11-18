@@ -1,32 +1,30 @@
-import {useCallback} from 'react';
-import {CartProvider as ShopifyCartProvider} from '@shopify/hydrogen/client';
+// Import the `CartProvider` component as `ShopifyCartProvider`.
+// Hydrogen provides a special `@shopify/hydrogen/client`
+// module to reference components that are safe to use within client components.
+// You should use this import path when writing your client components.
+import { CartProvider as ShopifyCartProvider } from '@shopify/hydrogen/client';
+// Import the `CartContext` client component and `useCart` hook.
+import CartContext, {useCart} from './CartContext.client';
 
-import CartUIProvider, {useCartUI} from './CartUIProvider.client';
-
-export default function CartProvider({children, numCartLines}) {
+// The `CartContext` component accepts `children`, `cart`, and `numCartLines` as props.
+export default function CartProvider({ children, cart, numCartLines }) {
+  // Return the context of the cart, the cart, and the number of cart lines.
   return (
-    <CartUIProvider>
-      <Provider numCartLines={numCartLines}>{children}</Provider>
-    </CartUIProvider>
+    <CartContext>
+      <Provider cart={cart} numCartLines={numCartLines}>
+        {children}
+      </Provider>
+    </CartContext>
   );
 }
 
-function Provider({children, numCartLines}) {
-  const {openCart} = useCartUI();
+function Provider({children, cart, numCartLines }) {
+  const {openCart} = useCart();
 
-  const open = useCallback(() => {
-    openCart();
-  }, [openCart]);
-
+  // Return the `ShopifyCartProvider` component.
   return (
-    <>
-      <ShopifyCartProvider
-        numCartLines={numCartLines}
-        onLineAdd={open}
-        onCreate={open}
-      >
-        {children}
-      </ShopifyCartProvider>
-    </>
-  );
+    <ShopifyCartProvider cart={cart} numCartLines={numCartLines} onCreate={openCart} onLineAdd={openCart}>
+      {children}
+    </ShopifyCartProvider>
+  )
 }
