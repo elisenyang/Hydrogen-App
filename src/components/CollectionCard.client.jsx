@@ -1,4 +1,4 @@
-import { Link, Image } from '@shopify/hydrogen'
+import { Link, Image } from '@shopify/hydrogen/client'
 
 export default function CollectionCard(props) {
     return (
