@@ -1,70 +1,53 @@
-import {
-  // The `useShopQuery` hook makes server-only GraphQL queries to the Storefront API.
-  useShopQuery,
-  // The `ProductProviderFragment` queries for all the product data you need for a component.
-  ProductProviderFragment,
-  // The `flattenConnection` utility takes Shopify storefront relay data
-  // and transforms it into a flat array of objects.
-  flattenConnection
-} from '@shopify/hydrogen';
-
-// Import the `Layout` component that defines the structure of the page.
-import Layout from '../components/Layout.server';
-// Import the `ProductList` component that defines the products to display.
-import ProductList from '../components/ProductList.server';
-import LoadMore from '../components/LoadMore.client';
-// Import `gql` to parse GraphQL queries.
+import { useShopQuery, Image, flattenConnection, Link, ProductProviderFragment} from '@shopify/hydrogen'
 import gql from 'graphql-tag';
 
-// Fetch product data from your storefront by passing in a GraphQL query to the
-// `useShopQuery` server component.
-export default function Index({first = 6}) {
-  const {data} = useShopQuery({
-    query: QUERY,
-    variables: {
-      numProductMetafields: 0,
-      numProductVariants: 250,
-      numProductMedia: 10,
-      numProductVariantMetafields: 10,
-      numProductVariantSellingPlanAllocations: 10,
-      numProductSellingPlanGroups: 10,
-      numProductSellingPlans: 10,
-      first,
-    },
-  });
+import Layout from '../components/Layout.server';
+import CollectionList from '../components/CollectionList.server';
+import AboutUs from '../components/AboutUs.server';
 
-  // Transform Shopify storefront relay data into
-  // a flat array of objects.
-  const products = flattenConnection(data.products);
-  // Return a list of products.
+
+export default function Index() {
+  const {data} = useShopQuery({
+    query: QUERY
+  })
+
   return (
     <Layout>
-      <LoadMore current={first}>
-        <ProductList products={products} />
-      </LoadMore>
+      <div className="flex flex-row bg-yellow-50 p-6">
+        <div className="w-3/4">
+        <Image src={`https://media.istockphoto.com/photos/charcuterie-boards-of-assorted-meats-cheeses-and-appetizers-top-view-picture-id1186420213?k=20&m=1186420213&s=612x612&w=0&h=XiiILxWmHQPm6fUat-Vsoruts6C3h7OB-7ltMqz6-CQ=`} width='100%' height='100%'/>
+        </div>
+        <div className="text-4xl ml-5 place-self-center w-1/4">Seasonal charcuterie boards and wine pairings</div>
+      </div>
+      <div className="p-10">
+        <h1 className="uppercase text-center text-2xl p-5 font-bold">Shop</h1>
+        <CollectionList/>
+      </div>
+      <div>
+        <h1 className="uppercase text-center text-2xl p-5 font-bold">About Us</h1>
+        <AboutUs />
+      </div>
     </Layout>
-  );
+  )
 }
 
-  // Define the GraphQL query.
-  const QUERY = gql`
-    query HomeQuery(
-      $numProductMetafields: Int!
-      $numProductVariants: Int!
-      $numProductMedia: Int!
-      $numProductVariantMetafields: Int!
-      $numProductVariantSellingPlanAllocations: Int!
-      $numProductSellingPlanGroups: Int!
-      $numProductSellingPlans: Int!
-      $first: Int!
-    ) {
-      products(first: $first) {
-        edges {
-          node {
-            ...ProductProviderFragment
+const QUERY = gql`
+  ${Image.Fragment}
+  query welcomeContent {
+    shop {
+      name
+    }
+    collections(first:10) {
+      edges {
+        node {
+          id
+          title 
+          handle
+          image {
+            ...ImageFragment
           }
         }
       }
     }
-    ${ProductProviderFragment}
-  `
+  }
+`;

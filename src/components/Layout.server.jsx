@@ -1,7 +1,10 @@
 // The `useShopQuery` hook makes server-only GraphQL queries to the Storefront API.
-import {useShopQuery, Link} from '@shopify/hydrogen';
+import {useShopQuery, Link, flattenConnection} from '@shopify/hydrogen';
 // Import `gql` to parse GraphQL queries.
 import gql from 'graphql-tag';
+
+import Navigation from './Navigation.client';
+import Footer from './Footer.server';
 
 // The `Layout` component accepts `children` as a prop. This injects any nested components into the layout when you call it.
 export default function Layout({children}) {
@@ -9,6 +12,8 @@ export default function Layout({children}) {
   const {data} = useShopQuery({
     query: QUERY,
   });
+
+  const collections = flattenConnection(data.collections); 
 
     // Return JSX with the Tailwind classes that determine the layout styling.
     return (
@@ -25,10 +30,14 @@ export default function Layout({children}) {
           <h1 className="font-bold uppercase tracking-wider text-2x-l">
           <Link to="/">{data.shop.name}</Link>        
           </h1>
+          <Navigation collections={collections}/>
         </header>
         <main id="mainContent" className="mx-auto max-w-7xl p-4 md:py-5 md:px-8">
           {children}
         </main>
+        <footer>
+          <Footer />
+        </footer>
       </div>
     );
   }
@@ -38,6 +47,15 @@ const QUERY = gql`
   query ShopNameQuery {
     shop {
       name
+    }
+    collections(first:10) {
+      edges {
+        node {
+          id
+          title
+          handle
+        }
+      }
     }
   }
 `;
