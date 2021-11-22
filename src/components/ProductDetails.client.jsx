@@ -146,7 +146,7 @@ export default function ProductDetails({product}) {
             </div>
             {/* Product Options */}
             <div className="mt-8">
-              <ProductOptions />
+              {initialVariant.title !== "Default Title" && <ProductOptions />}
               <Product.Metafield namespace="my_fields" keyName="size_chart">
                 {({value}) => {
                   return value ? (

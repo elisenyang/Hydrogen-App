@@ -13,11 +13,13 @@ export default function AboutUs() {
 
     return (
         <div className="flex flex-row">
-            <Image image={aboutUsContent.image} options={{width: 450, height: 450, crop: 'center'}}/>
-            <div className="ml-5 space-y-5">
+            <Image image={aboutUsContent.image} options={{width: 400, height: 250, crop: 'center'}}/>
+            <div className="ml-5 mt-3 space-y-5">
                 <div className="text-xl">{aboutUsContent.title}</div>
-                <div>{aboutUsContent.content}</div>
-            <Button to="./about-us" label="Learn More"/>
+                {aboutUsContent.content}
+            <div className="w-6/12 mt-5">
+              <Button url="/about-us" label="Learn More"/>
+            </div>
             </div>
         </div>
     )
