@@ -1,32 +1,34 @@
-import {useCallback} from 'react';
-import {CartProvider as ShopifyCartProvider} from '@shopify/hydrogen/client';
+import React, { useState, useContext } from "react";
+import { CartProvider as ShopifyCartProvider} from '@shopify/hydrogen/client'
 
-import CartUIProvider, {useCartUI} from './CartUIProvider.client';
+const CartContext = React.createContext(null);
 
-export default function CartProvider({children, numCartLines}) {
-  return (
-    <CartUIProvider>
-      <Provider numCartLines={numCartLines}>{children}</Provider>
-    </CartUIProvider>
-  );
+export function useCart() {
+    return useContext(CartContext)
 }
 
-function Provider({children, numCartLines}) {
-  const {openCart} = useCartUI();
+export default function CartProvider({children}) {
 
-  const open = useCallback(() => {
-    openCart();
-  }, [openCart]);
+    const [cartOpen, setCartOpen] = useState(false)
 
-  return (
-    <>
-      <ShopifyCartProvider
-        numCartLines={numCartLines}
-        onLineAdd={open}
-        onCreate={open}
-      >
-        {children}
-      </ShopifyCartProvider>
-    </>
-  );
+    function handleToggleCart() {
+        setCartOpen((cartOpen) => {
+            return !cartOpen
+        });
+    }
+    
+    const cartValue = {
+        isOpen: cartOpen,
+        toggleCart: handleToggleCart
+    }
+
+
+    return (
+        <CartContext.Provider value={cartValue}>
+            <ShopifyCartProvider>
+            {children}
+            </ShopifyCartProvider>
+        </CartContext.Provider>
+    )
 }
+

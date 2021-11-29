@@ -16,6 +16,7 @@ export default function Header({collections, storeName}) {
           isMobileNavOpen ? '' : 'bg-opacity-95'
         }`}
       >
+
         <div className="h-full flex lg:flex-col place-content-between">
           <div className="text-center w-full flex justify-between items-center">
             <CurrencySelector />
