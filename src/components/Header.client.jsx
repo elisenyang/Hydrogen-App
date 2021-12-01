@@ -31,11 +31,6 @@ export default function Header({collections, storeName}) {
             >
               {storeName}
             </Link>
-            <CartToggle
-              handleClick={() => {
-                if (isMobileNavOpen) setIsMobileNavOpen(false);
-              }}
-            />
           </div>
           <Navigation collections={collections} storeName={storeName} />
         </div>

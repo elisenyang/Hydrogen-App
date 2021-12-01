@@ -13,21 +13,9 @@ import {
   SelectedVariantPrice,
 } from '@shopify/hydrogen';
 
-export default function FeaturedProduct() {
-  const {data} = useShopQuery({
-    query: QUERY,
-    variables: {
-      numProductMetafields: 0,
-      numProductVariants: 1,
-      numProductMedia: 1,
-      numProductVariantMetafields: 10,
-      numProductVariantSellingPlanAllocations: 10,
-      numProductSellingPlanGroups: 10,
-      numProductSellingPlans: 10,
-    },
-  });
+export default function FeaturedProduct(props) {
 
-  const featuredProduct = data.product;
+  const featuredProduct = props.product;
   const firstVariant = featuredProduct.variants?.edges[0]?.node;
 
   return (
@@ -57,21 +45,4 @@ export default function FeaturedProduct() {
       </div>
     </ProductProvider>
   );
-}
-
-const QUERY = gql`
-  query featuredProductContent(
-    $numProductMetafields: Int!
-    $numProductVariants: Int!
-    $numProductMedia: Int!
-    $numProductVariantMetafields: Int!
-    $numProductVariantSellingPlanAllocations: Int!
-    $numProductSellingPlanGroups: Int!
-    $numProductSellingPlans: Int!
-  ) {
-    product(handle: "thanksgiving-meat-and-cheese") {
-      ...ProductProviderFragment
-    }
-  }
-  ${ProductProviderFragment}
-`;
+};

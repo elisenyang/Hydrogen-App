@@ -24,6 +24,7 @@ export default function Collection({
       handle,
       country: country.isoCode,
       numProducts: collectionProductCount,
+      includeReferenceMetafieldDetails: false,
     },
   });
 
@@ -66,6 +67,7 @@ const QUERY = gql`
     $country: CountryCode
     $numProducts: Int!
     $numProductMetafields: Int = 0
+    $includeReferenceMetafieldDetails: Boolean = false
     $numProductVariants: Int = 250
     $numProductMedia: Int = 6
     $numProductVariantMetafields: Int = 0

@@ -14,6 +14,7 @@ export default function Product({country = {isoCode: 'US'}}) {
     variables: {
       country: country.isoCode,
       handle,
+      includeReferenceMetafieldDetails: false,
     },
   });
 
@@ -33,6 +34,7 @@ const QUERY = gql`
     $country: CountryCode
     $handle: String!
     $numProductMetafields: Int = 20
+    $includeReferenceMetafieldDetails: Boolean = false
     $numProductVariants: Int = 250
     $numProductMedia: Int = 6
     $numProductVariantMetafields: Int = 10

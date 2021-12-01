@@ -10,7 +10,10 @@ import {
   CartShopPayButton,
 } from '@shopify/hydrogen/client';
 
+import Button from './Button.client';
+
 export default function Cart(props) {
+
   return (
     <div className="bg-gray-50 p-5">
       <CartLines>
@@ -18,17 +21,19 @@ export default function Cart(props) {
         <CartLineProductTitle />
         <CartLinePrice />
         <CartLineQuantityAdjustButton adjust="decrease">
-          Decrease
+          Add
         </CartLineQuantityAdjustButton>
         <CartLineQuantity />
         <CartLineQuantityAdjustButton adjust="increase">
-          Increase
+          Remove
         </CartLineQuantityAdjustButton>
       </CartLines>
-      <span>Total:</span>
-      <CartEstimatedCost />
-      <CartCheckoutButton>Check Out</CartCheckoutButton>
-      <CartShopPayButton></CartShopPayButton>
+        <div>
+          <p>Total:</p>
+          <CartEstimatedCost />
+          <CartCheckoutButton>Check Out</CartCheckoutButton>
+          <CartShopPayButton />
+        </div>
     </div>
   );
 }

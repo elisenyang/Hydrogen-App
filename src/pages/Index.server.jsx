@@ -12,6 +12,7 @@ export default function Index() {
     query: QUERY,
     variables: {
       numProductMetafields: 0,
+      includeReferenceMetafieldDetails: false,
       numProductVariants: 1,
       numProductMedia: 1,
       numProductVariantMetafields: 10,
@@ -22,7 +23,6 @@ export default function Index() {
   })
 
   const featuredProduct = data.product
-
   return (
       <Layout>
         <div className="flex flex-row p-6">
@@ -34,7 +34,7 @@ export default function Index() {
         <div className="p-10">
           <h1 className="uppercase text-center text-2xl p-5 font-bold">Featured Product</h1>
           <div>
-            <FeaturedProduct />
+            <FeaturedProduct product={featuredProduct}/>
           </div>
         </div>
         <div className="p-10">
@@ -52,6 +52,7 @@ export default function Index() {
 const QUERY = gql`
   query welcomeContent (
     $numProductMetafields: Int!
+    $includeReferenceMetafieldDetails: Boolean = false
     $numProductVariants: Int!
     $numProductMedia: Int!
     $numProductVariantMetafields: Int!
