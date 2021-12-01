@@ -8,6 +8,7 @@ import {
   CartEstimatedCost,
   CartCheckoutButton,
   CartShopPayButton,
+  CartLineSelectedOptions
 } from '@shopify/hydrogen/client';
 
 import Button from './Button.client';
@@ -27,6 +28,9 @@ export default function Cart(props) {
         <CartLineQuantityAdjustButton adjust="increase">
           Remove
         </CartLineQuantityAdjustButton>
+        <CartLineSelectedOptions>
+          {() => console.log('HI')}
+        </CartLineSelectedOptions>
       </CartLines>
         <div>
           <p>Total:</p>
