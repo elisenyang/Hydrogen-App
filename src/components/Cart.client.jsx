@@ -6,13 +6,13 @@ import {
   CartLineQuantity,
   CartLineQuantityAdjustButton,
   CartEstimatedCost,
-  CartCheckoutButton,
-  CartShopPayButton,
+  useCart,
+  useCartLinesTotalQuantity
 } from '@shopify/hydrogen/client';
 
-import Button from './Button.client';
-
 export default function Cart(props) {
+  const cart = useCart()
+  const totalItems = useCartLinesTotalQuantity();
 
   return (
     <div className="bg-gray-50 p-5">
@@ -21,19 +21,14 @@ export default function Cart(props) {
         <CartLineProductTitle />
         <CartLinePrice />
         <CartLineQuantityAdjustButton adjust="decrease">
-          Add
+          Remove
         </CartLineQuantityAdjustButton>
         <CartLineQuantity />
         <CartLineQuantityAdjustButton adjust="increase">
-          Remove
+          Add
         </CartLineQuantityAdjustButton>
       </CartLines>
-        <div>
-          <p>Total:</p>
-          <CartEstimatedCost />
-          <CartCheckoutButton>Check Out</CartCheckoutButton>
-          <CartShopPayButton />
-        </div>
+      { totalItems ? <div>Total: <CartEstimatedCost/></div> : <p>Cart is empty</p>}
     </div>
   );
 }

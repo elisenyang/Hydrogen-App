@@ -16,8 +16,6 @@ export default function Layout({children}) {
     query: QUERY,
   });
 
-  const cartCtx = useCart();
-
   const collections = flattenConnection(data.collections);
 
   // Return JSX with the Tailwind classes that determine the layout styling.
@@ -36,7 +34,9 @@ export default function Layout({children}) {
           <h1 className="font-bold uppercase tracking-wider text-2x-l">
             <Link to="/">{data.shop.name}</Link>
           </h1>
+          <CartProvider>
             <CartSection />
+          </CartProvider>
           <Navigation collections={collections} />
         </header>
       </div>
