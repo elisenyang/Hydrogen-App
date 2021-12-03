@@ -29,14 +29,12 @@ export default function Layout({children}) {
           Skip to content
         </a>
       </div>
-      <div>
+      <div>Î
         <header className="my-10 text-center">
           <h1 className="font-bold uppercase tracking-wider text-2x-l">
             <Link to="/">{data.shop.name}</Link>
           </h1>
-          <CartProvider>
             <CartSection />
-          </CartProvider>
           <Navigation collections={collections} />
         </header>
       </div>

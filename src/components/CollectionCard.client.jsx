@@ -2,7 +2,7 @@ import {Link, Image} from '@shopify/hydrogen/client';
 
 export default function CollectionCard(props) {
   return (
-    <>
+    <div className="m-1">
       <Link to={`/collections/${props.collection.handle}`}>
         <Image
           image={props.collection.image}
@@ -10,6 +10,6 @@ export default function CollectionCard(props) {
         />
         <p className="text-center text-lg">{props.collection.title}</p>
       </Link>
-    </>
+    </div>
   );
 }
