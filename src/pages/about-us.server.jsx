@@ -1,7 +1,5 @@
-import { Image, useShop, useShopQuery, flattenConnection } from '@shopify/hydrogen'
+import { useShopQuery, RawHtml } from '@shopify/hydrogen'
 import Layout from "../components/Layout.server";
-import AboutUs from "../components/AboutUs.server";
-import Button from '../components/Button.client';
 import gql from 'graphql-tag';
 
 
@@ -12,8 +10,8 @@ export default function aboutUsPage() {
 
     return (
         <Layout>
-            <div>{data.page.title}</div>
-            {data.page.body}
+            <h1>{data.page.title}</h1>
+            <RawHtml string={data.page.body} as="span"/>
         </Layout>
     )
 }

@@ -68,7 +68,6 @@ export default function Index() {
 const QUERY = gql`
   query welcomeContent(
     $numProductMetafields: Int!
-    $includeReferenceMetafieldDetails: Boolean = false
     $numProductVariants: Int!
     $numProductMedia: Int!
     $numProductVariantMetafields: Int!

@@ -10,7 +10,7 @@ export default function CartSection() {
     <div className="absolute top-10 bottom-0 right-20">
       <button onClick={cartUI.toggleCart}>Cart ({totalItems})</button>
       {cartUI.isOpen && (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50 p-3 shadow">
           <Cart />
           <Link to="/cart">
             <button onClick={cartUI.toggleCart}>View Cart</button>
