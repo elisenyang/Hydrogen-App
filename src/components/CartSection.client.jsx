@@ -1,6 +1,6 @@
 import Cart from './Cart.client';
-import {useCartUI} from './CartUIProvider.client';
-import {Link, useCartLinesTotalQuantity} from '@shopify/hydrogen/client';
+import { useCartUI } from './CartUIProvider.client';
+import { Link, useCartLinesTotalQuantity } from '@shopify/hydrogen/client';
 
 export default function CartSection() {
   const cartUI = useCartUI();
