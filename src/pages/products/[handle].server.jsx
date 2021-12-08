@@ -14,6 +14,7 @@ export default function Product({country = {isoCode: 'US'}}) {
     variables: {
       country: country.isoCode,
       handle,
+      includeReferenceMetafieldDetails: false,
     },
   });
 

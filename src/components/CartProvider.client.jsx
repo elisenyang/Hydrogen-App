@@ -1,17 +1,17 @@
-import {useCallback} from 'react';
+import {createContext, useState, useMemo, useContext, useCallback} from 'react';
 import {CartProvider as ShopifyCartProvider} from '@shopify/hydrogen/client';
 
 import CartUIProvider, {useCartUI} from './CartUIProvider.client';
 
-export default function CartProvider({children, numCartLines}) {
+export default function CartProvider({children, cart}) {
   return (
     <CartUIProvider>
-      <Provider numCartLines={numCartLines}>{children}</Provider>
+      <Provider cart={cart}>{children}</Provider>
     </CartUIProvider>
   );
 }
 
-function Provider({children, numCartLines}) {
+function Provider({children, cart}) {
   const {openCart} = useCartUI();
 
   const open = useCallback(() => {
@@ -19,14 +19,8 @@ function Provider({children, numCartLines}) {
   }, [openCart]);
 
   return (
-    <>
-      <ShopifyCartProvider
-        numCartLines={numCartLines}
-        onLineAdd={open}
-        onCreate={open}
-      >
-        {children}
-      </ShopifyCartProvider>
-    </>
+    <ShopifyCartProvider cart={cart} onLineAdd={open} onCreate={open}>
+      {children}
+    </ShopifyCartProvider>
   );
 }

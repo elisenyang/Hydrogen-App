@@ -24,6 +24,7 @@ export default function Collection({
       handle,
       country: country.isoCode,
       numProducts: collectionProductCount,
+      includeReferenceMetafieldDetails: false,
     },
   });
 

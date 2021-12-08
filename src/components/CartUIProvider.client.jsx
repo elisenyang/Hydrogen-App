@@ -1,42 +1,36 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useContext,
-  createContext,
-} from 'react';
+import {createContext, useContext, useState, useMemo, useCallback} from 'react';
 
-export const CartContext = createContext(null);
+const CartContext = createContext(null);
+
+export function useCartUI() {
+  return useContext(CartContext);
+}
 
 export default function CartUIProvider({children}) {
-  const [open, setOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const openCart = useCallback(() => {
-    setOpen(true);
-  }, [setOpen]);
+    setCartOpen(true);
+  }, [setCartOpen]);
 
   const closeCart = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
+    setCartOpen(false);
+  }, [setCartOpen]);
 
   const toggleCart = useCallback(() => {
-    setOpen(!open);
-  }, [setOpen, open]);
+    setCartOpen(!cartOpen);
+  }, [setCartOpen, cartOpen]);
 
   const contextValue = useMemo(() => {
     return {
-      isCartOpen: open,
+      isOpen: cartOpen,
       openCart,
       closeCart,
       toggleCart,
     };
-  }, [open, openCart, closeCart, toggleCart]);
+  }, [cartOpen, openCart, closeCart, toggleCart]);
 
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
-}
-
-export function useCartUI() {
-  return useContext(CartContext);
 }

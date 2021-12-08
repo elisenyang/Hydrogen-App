@@ -1,4 +1,5 @@
 import {ShopifyServerProvider, DefaultRoutes} from '@shopify/hydrogen';
+import { CartProvider as ShopifyCartProvider } from '@shopify/hydrogen';
 import {Switch} from 'react-router-dom';
 import {Suspense} from 'react';
 
