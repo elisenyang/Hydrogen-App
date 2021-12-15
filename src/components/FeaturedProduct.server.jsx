@@ -1,15 +1,12 @@
 import ProductCard from './ProductCard.server';
 import gql from 'graphql-tag';
 import {
-  useShopQuery,
   ProductProvider,
-  ProductProviderFragment,
   SelectedVariantImage,
   SelectedVariantAddToCartButton,
   SelectedVariantBuyNowButton,
   ProductTitle,
   ProductDescription,
-  ProductPrice,
   SelectedVariantPrice,
 } from '@shopify/hydrogen';
 
