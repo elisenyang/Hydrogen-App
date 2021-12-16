@@ -2,8 +2,6 @@
 import {useShopQuery, Link, flattenConnection} from '@shopify/hydrogen';
 // Import `gql` to parse GraphQL queries.
 import gql from 'graphql-tag';
-import CartProvider, {useCart} from './CartProvider.client';
-import {useContext} from 'react';
 
 import Navigation from './Navigation.client';
 import Footer from './Footer.server';

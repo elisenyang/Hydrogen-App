@@ -29,6 +29,7 @@ export default function Index() {
   });
 
   const featuredProduct = data.product;
+  
   return (
     <Layout>
       <div className="flex flex-row p-6">

@@ -1,5 +1,3 @@
-import ProductCard from './ProductCard.server';
-import gql from 'graphql-tag';
 import {
   ProductProvider,
   SelectedVariantImage,
@@ -8,6 +6,7 @@ import {
   ProductTitle,
   ProductDescription,
   SelectedVariantPrice,
+  Link
 } from '@shopify/hydrogen';
 
 export default function FeaturedProduct(props) {
@@ -26,7 +25,7 @@ export default function FeaturedProduct(props) {
         />
         <div className="flex flex-col justify-around">
           <div className="ml-3">
-            <ProductTitle className="text-xl m-3" />
+            <Link to={`/products/${featuredProduct.handle}`}><ProductTitle className="text-xl m-3" /></Link> 
             <SelectedVariantPrice className="m-3" />
             <ProductDescription className="m-3" />
           </div>
